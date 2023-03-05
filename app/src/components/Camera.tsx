@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert } from 'react-native'
+import { View, TouchableOpacity, Linking, Platform, Alert } from 'react-native'
 import { RNCamera } from 'react-native-camera';
-import { PERMISSIONS, check, request, RESULTS, checkMultiple, requestMultiple, } from 'react-native-permissions';
+import { PERMISSIONS, RESULTS, checkMultiple, requestMultiple } from 'react-native-permissions';
 
 
 
@@ -84,7 +84,7 @@ export default Camera = ({ navigation }) => {
         };
         const data = await camRef.current.takePictureAsync(options);
         if (data.uri) {
-            navigation.navigate('Add', { image: data.uri })
+            navigation.navigate('Add Information', { image: data.uri })
         }
     };
 
@@ -96,26 +96,13 @@ export default Camera = ({ navigation }) => {
                 style={{ flex: 1 }}
                 type={RNCamera.Constants.Type.front}
                 defaultOnFocusComponent={true}
-                // androidCameraPermissionOptions={{
-                //   title: I18n.t('LBL_PERMISSION_CAMERA'),
-                //   message: I18n.t('LBL_NEED_USE_PERMISON_CAMERA'),
-                //   buttonPositive: I18n.t('BTN_OK'),
-                //   buttonNegative: I18n.t('LBL_CANCEL')
-                // }}
                 ratio={'4:4'}
                 playSoundOnCapture={false}
                 playSoundOnRecord={false}
-                // androidRecordAudioPermissionOptions={{
-                //   title: I18n.t('LBL_PERMISSION_AUDIO_RECORD'),
-                //   message: I18n.t('LBL_NEED_PERMISSION_AUDIO'),
-                //   buttonPositive: I18n.t('BTN_OK'),
-                //   buttonNegative: I18n.t('LBL_CANCEL')
-                // }}
                 defaultVideoQuality={480}
                 cameraProps={{ captureAudio: false }}
             ></RNCamera>
             <TouchableOpacity
-                // style={{ flex: 1 }}
                 onPress={handleCameraPermission}>
                 <View style={{
                     height: 60,
@@ -125,7 +112,6 @@ export default Camera = ({ navigation }) => {
                     backgroundColor: 'black',
                     alignSelf: 'center'
                 }}>
-                    {/* <View style={CameraStyles.snapbtninside}></View> */}
                 </View>
             </TouchableOpacity>
         </>

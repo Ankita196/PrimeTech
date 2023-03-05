@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, Platform } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 const DropDown = (props) => {
-    // const [isFocus,
-    //   setIsFocus] = useState(false);
-    console.log(props, "hffb")
     return (
         <View style={{
             flexDirection: 'column',
@@ -17,23 +14,17 @@ const DropDown = (props) => {
                 color: 'black',
             }}>{props.label}</Text>
             <Dropdown
-                iconColor={'black'}
+                labelField={'label'}
+                valueField={'value'}
                 maxHeight={160}
                 style={{
                     width: '100%',
-                    height: 42,
+                    height: 35,
                     borderWidth: 1,
-                    borderColor: 'black',
-                    backgroundColor: 'transparent',
-                    // borderBottomLeftRadius: dropDownDirection !== 'top' && isFocus ? 0 : 5,
-                    // borderBottomRightRadius: dropDownDirection !== 'top' && isFocus ? 0 : 5,
-                    // borderTopLeftRadius: dropDownDirection === 'top' && isFocus ? 0 : 5,
-                    // borderTopRightRadius: dropDownDirection === 'top' && isFocus ? 0 : 5,
-                    marginTop: 8,
-                    marginBottom: 4,
+                    marginTop: 10,
+                    marginBottom: 10,
                     paddingRight: 10
                 }}
-                dropdownPosition={'bottom'}
                 placeholderStyle={{
                     fontSize: 14,
                     fontWeight: '400',
@@ -44,33 +35,24 @@ const DropDown = (props) => {
                     fontSize: 14,
                     fontWeight: '400',
                     color: 'black',
-                    letterSpacing: 0.3,
-                    // paddingLeft: 15
+                    paddingLeft: 15
                 }}
                 itemContainerStyle={{
                     marginVertical: -6,
-                    marginLeft: -2
+                    marginLeft: -2,
                 }}
                 containerStyle={{
                     marginTop: -2,
-                    backgroundColor: '#151D29',
                     borderWidth: 1,
                     borderColor: 'black',
-                    borderTopStartRadius: 0,
-                    borderTopEndRadius: 0,
-                    borderBottomEndRadius: 5,
-                    borderBottomStartRadius: 5,
                 }}
-                activeColor="transparent"
+                activeColor="grey"
                 itemTextStyle={{
                     fontSize: 14,
                     fontWeight: '400',
-                    color: 'red',
+                    color: 'black',
                 }}
-
                 {...props}
-            //   onFocus={() => setIsFocus(true)}
-            //   onBlur={() => setIsFocus(false)}
             />
         </View>
     );

@@ -1,5 +1,5 @@
-import React, { useState, useRef, forwardRef, useImperativeHandle } from "react";
-import { StyleSheet, Text, View, Linking, Platform, Alert, FlatList, TouchableOpacity, Pressable, ImageComponent } from "react-native";
+import React, { useState, useRef } from "react";
+import { StyleSheet, Text, View, Linking, Platform, Alert, Pressable } from "react-native";
 import MapView from "react-native-maps";
 import Geolocation from 'react-native-geolocation-service';
 import { Marker } from "react-native-maps";
@@ -7,14 +7,10 @@ import { PERMISSIONS, RESULTS, checkMultiple, requestMultiple } from 'react-nati
 import { USER_DATA } from '../reducers/constant';
 import { useDispatch, useSelector } from "react-redux";
 
-const Map = () => {
+const Map = ({ disable }) => {
     const mapRef = useRef(null);
     const dispatch = useDispatch();
     const userData = useSelector(state => state.UserReducer?.userData)
-    console.log({ userData })
-    // useEffect(() => {
-    //     requestLocation()
-    // }, [])
 
     const openAlert = () => {
         Alert.alert(
@@ -86,7 +82,7 @@ const Map = () => {
         }
     };
 
-    const [region, setRegion] = useState(userData?.location ?? {});
+    // const [region, setRegion] = useState(userData?.location ?? {});
 
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition(
@@ -98,10 +94,8 @@ const Map = () => {
                         latitudeDelta: 0.01,
                         longitudeDelta: 0.01,
                     }
-                    console.log({ position })
-                    setRegion(myloaction);
+                    // setRegion(myloaction);
                     dispatch({ type: USER_DATA, payload: { ...userData, location: myloaction } });
-                    // props.onChange(position?.coords?.latitude);
                     mapRef.current.animateToRegion(myloaction, 2 * 1000);
                 }
             },
@@ -118,16 +112,16 @@ const Map = () => {
 
     return (
         <>
-            {Object.keys(region).length > 0 ?
-                <View style={styles.container}>
+            {userData?.location && Object.keys(userData?.location).length > 0 ?
+                <View style={styles.container} pointerEvents={disable ? 'none' : 'auto'}>
                     <MapView
                         ref={mapRef}
                         style={styles.map}
-                        initialRegion={region}
-                        onRegionChangeComplete={(region) => setRegion(region)}
+                        initialRegion={userData?.location ?? {}}
+                    // onRegionChangeComplete={(region) => setRegion(region)}
                     >
                         <Marker
-                            coordinate={region}
+                            coordinate={userData?.location ?? {}}
                             pinColor="pink"
                         />
                     </MapView>
@@ -139,7 +133,7 @@ const Map = () => {
                         fontWeight: '700',
                         color: 'white',
                     }}>
-                        Give Access Location
+                        Give Access to Location
                     </Text>
                 </Pressable>}
         </>
@@ -149,8 +143,8 @@ const styles = StyleSheet.create({
     container: {
         ...StyleSheet.absoluteFillObject,
         flex: 1,
-        top: 450,
-        height: 200,
+        top: 380,
+        height: 170,
         width: '100%',
         justifyContent: "flex-end",
         alignItems: "center",

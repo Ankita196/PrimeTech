@@ -11,15 +11,15 @@ export default TextBox = (props) => {
             }}>{props.label}</Text>
             <TextInput
                 {...props}
+                placeholderTextColor={'grey'}
                 style={{
                     fontSize: 14,
                     fontWeight: '500',
                     color: 'black',
                     paddingVertical: 8,
-                    paddingHorizontal: 8,
-                    height: 40,
+                    paddingHorizontal: 15,
+                    height: 35,
                     marginVertical: 10,
-                    borderRadius: 5,
                     alignItems: 'center',
                     borderWidth: 1,
                     borderColor: 'black'
